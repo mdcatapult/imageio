@@ -194,22 +194,22 @@ class Request(object):
         if self._uri_type == URI_FILENAME and self._filename.startswith("~"):
             self._filename = os.path.expanduser(self._filename)
 
-        # Check if a zipfile
-        if self._uri_type == URI_FILENAME:
-            # Search for zip extension followed by a path separater
-            for needle in [".zip/", ".zip\\"]:
-                zip_i = self._filename.lower().find(needle)
-                if zip_i > 0:
-                    zip_i += 4
-                    zip_path = self._filename[:zip_i]
-                    if is_write_request or os.path.isfile(zip_path):
-                        self._uri_type = URI_ZIPPED
+#         # Check if a zipfile
+#         if self._uri_type == URI_FILENAME:
+#             # Search for zip extension followed by a path separater
+#             for needle in [".zip/", ".zip\\"]:
+#                 zip_i = self._filename.lower().find(needle)
+#                 if zip_i > 0:
+#                     zip_i += 4
+#                     zip_path = self._filename[:zip_i]
+#                     if is_write_request or os.path.isfile(zip_path):
+#                         self._uri_type = URI_ZIPPED
 
-                        self._filename_zip = (
-                            zip_path,
-                            self._filename[zip_i:].lstrip("/\\"),
-                        )
-                        break
+#                         self._filename_zip = (
+#                             zip_path,
+#                             self._filename[zip_i:].lstrip("/\\"),
+#                         )
+#                         break
 
         # Check if we could read it
         if self._uri_type is None:
